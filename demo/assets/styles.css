@@ -1,0 +1,39 @@
+#chat-history {
+  height: 60vh;
+  overflow-y: scroll;
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: #fcfcfc;
+}
+
+.message_row {
+  width: 100%;
+  height: auto;
+}
+
+.message-box {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.user-query-box {
+  background-color: #e0e0e0;
+  color: #000;
+  border-radius: 15px;
+  padding: 10px;
+  width: fit-content;
+  max-width: 60%;
+  margin-right: auto;
+  text-align: left;
+}
+
+.chatbot-response-box {
+  background-color: #007bff;
+  color: white;
+  border-radius: 15px;
+  padding: 10px;
+  width: fit-content;
+  max-width: 60%;
+  margin-left: auto;
+  text-align: left;
+}
