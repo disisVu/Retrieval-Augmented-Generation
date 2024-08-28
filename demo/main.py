@@ -1,12 +1,18 @@
 import dash
-from dash import dcc, html
+from dash import html
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 
 import os
-from transformers import AutoTokenizer, AutoModel, BartForConditionalGeneration
+from transformers import (
+  DPRQuestionEncoder, 
+  DPRQuestionEncoderTokenizer, 
+  T5Tokenizer, 
+  T5ForConditionalGeneration,
+  AutoTokenizer, 
+  AutoModelForSequenceClassification
+)
 import torch
-import faiss
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -19,27 +25,33 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
 
-#  Initialize Models and Tokenizers
 def initialize_models():
-  # Initialize tokenizer and model for embedding generation
-  embedding_tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
-  embedding_model = AutoModel.from_pretrained("distilbert-base-uncased")
+  # Initialize tokenizer and model for embedding generation (DPR for better retrieval performance)
+  embedding_tokenizer = DPRQuestionEncoderTokenizer.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
+  embedding_model = DPRQuestionEncoder.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
 
-  # Initialize tokenizer and model for text generation
-  generation_tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn")
-  generation_model = BartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn")
+  # Initialize tokenizer and model for text generation (Flan-T5 for better generation quality)
+  generation_tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-large")
+  generation_model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-large")
 
-  return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model
+  # Initialize tokenizer and model for re-ranking
+  ranking_tokenizer = AutoTokenizer.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
+  ranking_model = AutoModelForSequenceClassification.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
+
+  return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model
 
 
 # Generate Embeddings
 def generate_embeddings(texts, tokenizer, model):
+  # Tokenize input texts
   inputs = tokenizer(texts, padding=True, truncation=True, return_tensors="pt")
+  
+  # Generate embeddings
   with torch.no_grad():
     outputs = model(**inputs)
-
-  # Use the mean of the token embeddings as the sentence embedding
-  embeddings = outputs.last_hidden_state.mean(dim=1)
+      
+  # DPR models use pooler_output for embeddings
+  embeddings = outputs.pooler_output
 
   return embeddings
 
@@ -61,6 +73,17 @@ def retrieve_top_k_documents(query_embedding, doc_embeddings, documents, k=5):
   top_k_indices = ranked_indices[0][:k]
   top_k_documents = [documents[idx] for idx in top_k_indices]
   return top_k_documents
+
+
+# Re-Rank the Top-K Documents
+def re_rank_documents(query, top_k_documents, ranking_tokenizer, ranking_model):
+  inputs = [f"{query} [SEP] {doc}" for doc in top_k_documents]
+  tokenized_inputs = ranking_tokenizer(inputs, padding=True, truncation=True, return_tensors='pt')
+  with torch.no_grad():
+    outputs = ranking_model(**tokenized_inputs)
+  scores = outputs.logits.squeeze().tolist()
+  ranked_docs = [doc for _, doc in sorted(zip(scores, top_k_documents), reverse=True)]
+  return ranked_docs
 
 
 # Generate Response
@@ -97,17 +120,14 @@ def get_data_from_txt_files(folder_path):
 
 # Initialize chatbot
 def initialize_chatbot():
-  embedding_tokenizer, embedding_model, generation_tokenizer, generation_model = initialize_models()
+  embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model = initialize_models()
   documents = get_data_from_txt_files(external_document_dir)
-
-  # Generate embeddings for documents
   doc_embeddings = generate_embeddings(documents, embedding_tokenizer, embedding_model)
-  
-  return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, doc_embeddings, documents
+  return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, doc_embeddings, documents
 
 
 # Initialize the chatbot components
-embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, doc_embeddings, documents = initialize_chatbot()
+embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, doc_embeddings, documents = initialize_chatbot()
 
 
 # Dash app layout
@@ -164,8 +184,9 @@ def update_output(n_clicks, user_message, chat_history):
 
     # Generate chatbot response
     query_embedding = generate_embeddings([user_message], embedding_tokenizer, embedding_model)
-    top_k_documents = retrieve_top_k_documents(query_embedding, doc_embeddings, documents, k=5)
-    response = generate_response(user_message, top_k_documents, generation_tokenizer, generation_model)
+    top_k_documents = retrieve_top_k_documents(query_embedding, doc_embeddings, documents, k=3)
+    ranked_docs = re_rank_documents(user_message, top_k_documents, ranking_tokenizer, ranking_model)
+    response = generate_response(user_message, ranked_docs, generation_tokenizer, generation_model)
 
     # Update chat history
     new_response_box = html.Div(
