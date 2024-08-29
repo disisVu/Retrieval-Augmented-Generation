@@ -49,7 +49,7 @@ def generate_embeddings(texts, tokenizer, model):
   # Generate embeddings
   with torch.no_grad():
     outputs = model(**inputs)
-      
+
   # DPR models use pooler_output for embeddings
   embeddings = outputs.pooler_output
 
@@ -140,7 +140,7 @@ app.layout = dbc.Container(
     ),
     dbc.Row(
       dbc.Col(
-        html.Div(id="chat-history")
+        html.Div(id="chat-window")
       )
     ),
     dbc.Row(
@@ -159,10 +159,10 @@ app.layout = dbc.Container(
 
 # Define callback to update chatbot response
 @app.callback(
-  Output("chat-history", "children"),
+  Output("chat-window", "children"),
   Input("send-button", "n_clicks"),
   State("user-input", "value"),
-  State("chat-history", "children")
+  State("chat-window", "children")
 )
 def update_output(n_clicks, user_message, chat_history):
   if n_clicks > 0 and user_message:
@@ -172,13 +172,11 @@ def update_output(n_clicks, user_message, chat_history):
 
     # Add query message box
     new_query_box = html.Div(
-      [
-        html.Div(
-          html.Span(f"{user_message}"),
-          className="message-box user-query-box"
-        )
-      ],
-      className="message-row"
+      html.Div(
+        html.Span(f"{user_message}"),
+        className="message-box query"
+      ),
+      className="message-wrapper"
     )
     chat_history.append(new_query_box)
 
@@ -188,15 +186,13 @@ def update_output(n_clicks, user_message, chat_history):
     ranked_docs = re_rank_documents(user_message, top_k_documents, ranking_tokenizer, ranking_model)
     response = generate_response(user_message, ranked_docs, generation_tokenizer, generation_model)
 
-    # Update chat history
+    # Add response message box
     new_response_box = html.Div(
-      [
-        html.Div(
-          html.Span(f"{response}"),
-          className="message-box chatbot-response-box"
-        )
-      ],
-      className="message-row"
+      html.Div(
+        html.Span(f"{response}"),
+        className="message-box response"
+      ),
+      className="message-wrapper"
     )
     chat_history.append(new_response_box)
 
