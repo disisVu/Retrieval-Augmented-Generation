@@ -5,8 +5,10 @@ import dash_bootstrap_components as dbc
 
 import os
 from transformers import (
-  DPRQuestionEncoder, 
-  DPRQuestionEncoderTokenizer, 
+  XLMRobertaTokenizer,
+  XLMRobertaModel,
+  DPRQuestionEncoderTokenizer,
+  DPRQuestionEncoder,
   T5Tokenizer, 
   T5ForConditionalGeneration,
   AutoTokenizer, 
@@ -26,34 +28,76 @@ server = app.server
 
 
 def initialize_models():
-  # Initialize tokenizer and model for embedding generation (DPR for better retrieval performance)
-  embedding_tokenizer = DPRQuestionEncoderTokenizer.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
-  embedding_model = DPRQuestionEncoder.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
+    # Initialize tokenizer and model for embedding generation (XLM-RoBERTa for multilingual support)
+    embedding_tokenizer = DPRQuestionEncoderTokenizer.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
+    embedding_model = DPRQuestionEncoder.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
 
-  # Initialize tokenizer and model for text generation (Flan-T5 for better generation quality)
-  generation_tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-large")
-  generation_model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-large")
+    # Initialize tokenizer and model for text generation (Flan-T5 for better generation quality)
+    generation_tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-large")
+    generation_model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-large")
 
-  # Initialize tokenizer and model for re-ranking
-  ranking_tokenizer = AutoTokenizer.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
-  ranking_model = AutoModelForSequenceClassification.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
+    # Initialize tokenizer and model for re-ranking
+    ranking_tokenizer = AutoTokenizer.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
+    ranking_model = AutoModelForSequenceClassification.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
-  return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model
+    return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model
 
 
-# Generate Embeddings
-def generate_embeddings(texts, tokenizer, model):
-  # Tokenize input texts
-  inputs = tokenizer(texts, padding=True, truncation=True, return_tensors="pt")
+def chunk_text(text, tokenizer, max_length=512):
+  # Tokenize the entire text without truncation
+  tokens = tokenizer.encode(text, add_special_tokens=False)
   
-  # Generate embeddings
-  with torch.no_grad():
-    outputs = model(**inputs)
+  # Split tokens into chunks of max_length
+  chunks = [tokens[i:i + max_length] for i in range(0, len(tokens), max_length)]
+  
+  # Decode tokens back to text for each chunk
+  chunk_texts = [tokenizer.decode(chunk, clean_up_tokenization_spaces=True) for chunk in chunks]
+  return chunk_texts
 
-  # DPR models use pooler_output for embeddings
-  embeddings = outputs.pooler_output
 
-  return embeddings
+# Read Document .txt Files
+def get_data_from_txt_files(folder_path, tokenizer, max_length=512):
+  documents = []  # List to store the content of each file
+  
+  # Loop through all files in the folder
+  for filename in os.listdir(folder_path):
+    # Check if the file is a .txt file
+    if filename.endswith('.txt'):
+      file_path = os.path.join(folder_path, filename)
+      
+      # Open and read the content of the file
+      with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+        # Chunk the content
+        chunks = chunk_text(content, tokenizer, max_length)
+        documents.extend(chunks)
+  
+  return documents
+
+
+def generate_embeddings(texts, tokenizer, model, max_length=512):
+    all_embeddings = []
+
+    for text in texts:
+        # Tokenize text with padding and truncation to ensure uniform input size
+        inputs = tokenizer(
+            text,
+            return_tensors="pt",
+            truncation=True,               # Truncate sequences longer than max_length
+            padding='max_length',          # Pad sequences to max_length
+            max_length=max_length          # Set maximum length to 512 tokens
+        )
+
+        # Generate embeddings using the DPR model
+        with torch.no_grad():
+            outputs = model(**inputs)
+            embedding = outputs.pooler_output  # Use the pooler_output for DPR models
+        
+        all_embeddings.append(embedding)
+
+    # Ensure the embeddings are a 2D tensor: [num_texts, embedding_dim]
+    return torch.cat(all_embeddings, dim=0) if all_embeddings else torch.empty(0)
+
 
 
 # Rank Documents Using Embeddings of Query and External Documents
@@ -83,6 +127,9 @@ def re_rank_documents(query, top_k_documents, ranking_tokenizer, ranking_model):
     outputs = ranking_model(**tokenized_inputs)
   scores = outputs.logits.squeeze().tolist()
   ranked_docs = [doc for _, doc in sorted(zip(scores, top_k_documents), reverse=True)]
+  print("\nRanked Documents:")
+  for i, doc in enumerate(ranked_docs):
+    print(f"Rank {i+1}: Score={scores[i]}, Document: {doc[:100]}...")
   return ranked_docs
 
 
@@ -93,41 +140,42 @@ def generate_response(query, top_k_documents, generation_tokenizer, generation_m
   input_text = query + " " + context
 
   inputs = generation_tokenizer.encode(input_text, return_tensors="pt", truncation=True)
+
+  # Debug: Print input length and contents
+  print("\n=== Debug: Generate Response ===")
+  print(f"Combined input length: {len(inputs[0])}")
+  print(f"Input (truncated): {generation_tokenizer.decode(inputs[0], skip_special_tokens=True)}")
+
   with torch.no_grad():
     output = generation_model.generate(inputs, max_length=100, num_return_sequences=1)
 
   response = generation_tokenizer.decode(output[0], skip_special_tokens=True)
+
+  # Debug: Print generated response
+  print(f"Generated Response: {response}")
   return response
 
 
-# Read Document .txt Files
-def get_data_from_txt_files(folder_path):
-  documents = []  # List to store the content of each file
-  
-  # Loop through all files in the folder
-  for filename in os.listdir(folder_path):
-    # Check if the file is a .txt file
-    if filename.endswith('.txt'):
-      file_path = os.path.join(folder_path, filename)
-      
-      # Open and read the content of the file
-      with open(file_path, 'r', encoding='utf-8') as file:
-        content = file.read()
-        documents.append(content)
-  
-  return documents
+
 
 
 # Initialize chatbot
-def initialize_chatbot():
-  embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model = initialize_models()
-  documents = get_data_from_txt_files(external_document_dir)
-  doc_embeddings = generate_embeddings(documents, embedding_tokenizer, embedding_model)
-  return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, doc_embeddings, documents
+def initialize_chatbot(external_document_dir, max_length=512):
+    # Initialize models and tokenizers
+    embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model = initialize_models()
+    
+    # Get documents from text files and chunk them
+    documents = get_data_from_txt_files(external_document_dir, embedding_tokenizer, max_length)
+
+    # Generate embeddings for the documents
+    doc_embeddings = generate_embeddings(documents, embedding_tokenizer, embedding_model)
+
+    return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, doc_embeddings, documents
 
 
 # Initialize the chatbot components
-embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, doc_embeddings, documents = initialize_chatbot()
+embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, doc_embeddings, documents = initialize_chatbot(external_document_dir)
+
 
 
 # Dash app layout
