@@ -2,11 +2,12 @@ import dash
 from dash import html
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
+from langdetect import detect
 
 import os
 from transformers import (
-  XLMRobertaTokenizer,
-  XLMRobertaModel,
+  MarianTokenizer,
+  MarianMTModel,
   DPRQuestionEncoderTokenizer,
   DPRQuestionEncoder,
   T5Tokenizer, 
@@ -19,7 +20,9 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-external_document_dir = os.path.join('external')  
+external_document_dir = os.path.join('external')
+
+embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, translation_tokenizer, translation_model = [None] * 8
 
 
 # Initialize the Flask server for Dash
@@ -28,19 +31,43 @@ server = app.server
 
 
 def initialize_models():
-    # Initialize tokenizer and model for embedding generation (XLM-RoBERTa for multilingual support)
-    embedding_tokenizer = DPRQuestionEncoderTokenizer.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
-    embedding_model = DPRQuestionEncoder.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
+  global embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, translation_tokenizer, translation_model
 
-    # Initialize tokenizer and model for text generation (Flan-T5 for better generation quality)
-    generation_tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-large")
-    generation_model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-large")
+  # Initialize tokenizer and model for embedding generation
+  embedding_tokenizer = DPRQuestionEncoderTokenizer.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
+  embedding_model = DPRQuestionEncoder.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
 
-    # Initialize tokenizer and model for re-ranking
-    ranking_tokenizer = AutoTokenizer.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
-    ranking_model = AutoModelForSequenceClassification.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
+  # Initialize tokenizer and model for text generation
+  generation_tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-large")
+  generation_model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-large")
 
-    return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model
+  # Initialize tokenizer and model for re-ranking
+  ranking_tokenizer = AutoTokenizer.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
+  ranking_model = AutoModelForSequenceClassification.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
+
+  # Initialize tokenizer and model for translation Vietnamese-English
+  translation_tokenizer = MarianTokenizer.from_pretrained("Helsinki-NLP/opus-mt-vi-en")
+  translation_model = MarianMTModel.from_pretrained("Helsinki-NLP/opus-mt-vi-en")
+
+  return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, translation_tokenizer, translation_model
+
+
+def translate_to_english(query):
+  global translation_tokenizer, translation_model
+  inputs = translation_tokenizer(query, return_tensors="pt", padding=True, truncation=True)
+  translated_tokens = translation_model.generate(**inputs)
+  translated_texts = [translation_tokenizer.decode(t, skip_special_tokens=True) for t in translated_tokens]
+  return translated_texts
+
+
+def detect_and_translate_text(texts):
+  translated_texts = []
+  for text in texts:
+    if detect(text) != 'en':
+      translated_texts.append(translate_to_english(text))
+    else:
+      translated_texts.append(text)
+  return translated_texts
 
 
 def chunk_text(text, tokenizer, max_length=512):
@@ -52,6 +79,9 @@ def chunk_text(text, tokenizer, max_length=512):
   
   # Decode tokens back to text for each chunk
   chunk_texts = [tokenizer.decode(chunk, clean_up_tokenization_spaces=True) for chunk in chunks]
+  
+  # # Detect and translate non-English chunks
+  # translated_chunks = detect_and_translate_text(chunk_texts)
   return chunk_texts
 
 
@@ -156,13 +186,10 @@ def generate_response(query, top_k_documents, generation_tokenizer, generation_m
   return response
 
 
-
-
-
 # Initialize chatbot
 def initialize_chatbot(external_document_dir, max_length=512):
     # Initialize models and tokenizers
-    embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model = initialize_models()
+    embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, translation_tokenizer, translation_model = initialize_models()
     
     # Get documents from text files and chunk them
     documents = get_data_from_txt_files(external_document_dir, embedding_tokenizer, max_length)
@@ -170,13 +197,22 @@ def initialize_chatbot(external_document_dir, max_length=512):
     # Generate embeddings for the documents
     doc_embeddings = generate_embeddings(documents, embedding_tokenizer, embedding_model)
 
-    return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, doc_embeddings, documents
+    return embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, translation_tokenizer, translation_model, doc_embeddings, documents
 
 
 # Initialize the chatbot components
-embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, doc_embeddings, documents = initialize_chatbot(external_document_dir)
+embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, translation_tokenizer, translation_model, doc_embeddings, documents = initialize_chatbot(external_document_dir)
 
+# Print each document
+for document in documents:
+    # Check if document is a list and join it into a single string if necessary
+    if isinstance(document, list):
+        document_text = ' '.join(document)
+    else:
+        document_text = document
 
+    # Print the document
+    print(document_text + '\n')
 
 # Dash app layout
 app.layout = dbc.Container(
@@ -229,6 +265,7 @@ def update_output(n_clicks, user_message, chat_history):
     chat_history.append(new_query_box)
 
     # Generate chatbot response
+    # translated_query = detect_and_translate_text(user_message)
     query_embedding = generate_embeddings([user_message], embedding_tokenizer, embedding_model)
     top_k_documents = retrieve_top_k_documents(query_embedding, doc_embeddings, documents, k=3)
     ranked_docs = re_rank_documents(user_message, top_k_documents, ranking_tokenizer, ranking_model)
