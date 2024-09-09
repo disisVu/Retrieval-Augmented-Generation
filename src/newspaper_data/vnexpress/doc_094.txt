@@ -1,0 +1,279 @@
+Biến động điểm chuẩn, học phí Đại học Thương mại 
+Từ năm 2021 đến nay, điểm chuẩn Đại học Thương mại (TMU) luôn từ 24 đến trên 27 điểm, xét theo kết quả ba môn thi tốt nghiệp.
+Nhiều năm nay, trường đều dành khoảng 40-50% chỉ tiêu cho phương thức xét điểm thi tốt nghiệp. Tất cả ngành đều lấy điểm chuẩn thang 30. Trong đó, mức thấp nhất là 24 tại hai ngành Quản trị nhân lực và Quản trị khách sạn chất lượng cao vào năm ngoái. Trong hai năm còn lại, ngưỡng trúng tuyển đều không dưới 25,8.
+Mức điểm chuẩn cao nhất là 27,45 tại ngành Marketing năm 2021. Hai năm sau, đầu vào ngành này có giảm, nhưng đều từ 27 trở lên.
+Các ngành khác chủ yếu lấy 25-26 điểm.
+Bốn tổ hợp chính được trường Đại học Thương mại dùng để xét tuyển là A00 (Toán, Lý, Hóa), A01 (Toán, Lý, Tiếng Anh), D01 (Toán, Văn, Tiếng Anh), và D07 (Toán, Hóa, Tiếng Anh). Mỗi ngành chỉ có một mức đầu vào, không phân biệt tổ hợp.
+Điểm chuẩn của Đại học Thương mại trong ba năm qua như sau:
+TT
+Mã ngành
+Tên ngành (chuyên ngành/chương trình đào tạo)
+Tổ hợp xét tuyển
+2021
+2022
+2023
+CHƯƠNG TRÌNH CHUẨN
+1
+TM01
+Quản trị kinh doanh (Quản trị kinh doanh)
+A00; A01; D01; D07
+26.7
+26.35
+26.5
+2
+TM03
+Quản trị kinh doanh (Khởi nghiệp và phát triển kinh doanh)
+A00; A01; D01; D07
+26.2
+26.1
+26.3
+3
+TM04
+Marketing (Marketing thương mại)
+A00; A01; D01; D07
+27.45
+27
+27
+4
+TM05
+Marketing (Quản trị thương hiệu)
+A00; A01; D01; D07
+27.15
+26.7
+26.8
+5
+TM06
+Logistics và Quản lý chuỗi cung ứng (Logistics và Quản lý chuỗi cung ứng)
+A00; A01; D01; D07
+27.4
+27
+26.8
+6
+TM07
+Kế toán (Kế toán doanh nghiệp)
+A00; A01; D01; D07
+26.6
+26.2
+25.9
+7
+TM09
+Kế toán (Kế toán công)
+A00; A01; D01; D07
+26.2
+25.8
+25.8
+8
+TM10
+Kiểm toán (Kiểm toán)
+A00; A01; D01; D07
+26.55
+26.2
+26.2
+9
+TM11
+Kinh doanh quốc tế (Thương mại quốc tế)
+A00; A01; D01; D07
+27.1
+26.6
+27
+10
+TM12
+Kinh tế quốc tế (Kinh tế quốc tế)
+A00; A01; D01; D07
+26.95
+26.5
+26.7
+11
+TM13
+Kinh tế (Quản lý kinh tế)
+A00; A01; D01; D07
+26.35
+26
+25.7
+12
+TM14
+Tài chính - Ngân hàng (Tài chính – Ngân hàng thương mại)
+A00; A01; D01; D07
+26.35
+25.9
+25.9
+13
+TM16
+Tài chính - Ngân hàng (Tài chính công)
+A00; A01; D01; D07
+26.15
+25.8
+25.7
+14
+TM17
+Thương mại điện tử (Quản trị Thương mại điện tử)
+A00; A01; D01; D07
+27.1
+27
+26.7
+15
+TM18
+Ngôn ngữ Anh (Tiếng Anh thương mại)
+A01; D01; D07
+26.7
+26.05
+25.8
+16
+TM19
+Luật kinh tế (Luật kinh tế)
+A00; A01; D01; D07
+26.1
+25.8
+25.7
+17
+TM20
+Quản trị kinh doanh (Tiếng Pháp thương mại)
+A00; A01; D01; D03
+26
+25.8
+24.5
+18
+TM21
+Ngôn ngữ Trung Quốc (Tiếng Trung thương mại)
+A00; A01; D01; D04
+26.8
+26
+26.9
+19
+TM22
+Hệ thống thông tin quản lý (Quản trị Hệ thống thông tin)
+A00; A01; D01; D07
+26.3
+26.1
+26
+20
+TM23
+Quản trị nhân lực (Quản trị nhân lực doanh nghiệp)
+A00; A01; D01; D07
+26.55
+26.2
+25.9
+21
+TM28
+Marketing (Marketing số)
+A00; A01; D01; D07
+-
+26.9
+27
+22
+TM29
+Luật kinh tế (Luật Thương mại quốc tế)
+A00; A01; D01; D07
+-
+25.8
+25.6
+23
+TM31
+Quản trị khách sạn (Quản trị khách sạn)
+A00; A01; D01; D07
+26.15
+-
+24.5
+24
+TM32
+Quản trị dịch vụ du lịch và lữ hành (Quản trị dịch vụ du lịch và lữ hành)
+A00; A01; D01; D07
+26.2
+-
+25.6
+25
+TM33
+Kinh tế số (Phân tích kinh doanh trong môi trường số)
+A00; A01; D01; D07
+-
+-
+25.8
+CHƯƠNG TRÌNH CHẤT LƯỢNG CAO
+1
+TM02
+Quản trị kinh doanh (Quản trị kinh doanh)
+A00; D01; D07
+26.15
+25.5
+25
+2
+TM08
+Kế toán (Kế toán doanh nghiệp)
+A01; D01; D07
+26.1
+25.5
+24
+3
+TM15
+Tài chính - Ngân hàng (Tài chính – Ngân hàng thương mại)
+A01; D01; D07
+26.1
+25.5
+24.5
+4
+TM27
+Quản trị nhân lực (Quản trị nhân lực doanh nghiệp)
+A01; D01; D07
+-
+25.5
+24
+5
+TM34
+Quản trị khách sạn (Quản trị khách sạn)
+A01; D01; D07
+-
+-
+24
+6
+TM35
+Marketing (Marketing thương mại)
+A01; D01; D07
+-
+-
+25.5
+7
+TM36
+Kinh doanh quốc tế (Thương mại quốc tế)
+A01; D01; D07
+-
+-
+25.45
+CHƯƠNG TRÌNH ĐỊNH HƯỚNG NGHỀ NGHIỆP
+1
+TM24
+Quản trị khách sạn (Quản trị khách sạn)
+A00; A01; D01; D07
+-
+25.5
+24.5
+2
+TM25
+Quản trị dịch vụ du lịch và lữ hành (Quản trị dịch vụ du lịch và lữ hành)
+A00; A01; D01; D07
+-
+25.6
+24.5
+3
+TM26
+Hệ thống thông tin quản lý (Quản trị Hệ thống thông tin)
+A00; A01; D01; D07
+-
+26
+25.3
+CHƯƠNG TRÌNH TÍCH HỢP CHỨNG CHỈ QUỐC TẾ
+1
+TM30
+Kế toán (Kế toán doanh nghiệp - chương trình tích hợp chứng chỉ quốc tế (ICAEW CFAB))
+A01; D01; D07
+-
+25
+24
+Năm nay, trường Đại học Thương mại tuyển 4.950 sinh viên cho 38 chương trình. 5 phương thức tuyển sinh gồm xét tuyển thẳng theo quy định của Bộ Giáo dục và Đào tạo; xét học bạ ba năm (chỉ áp dụng với học sinh trường chuyên); xét điểm thi đánh giá năng lực, tư duy, xét tuyển kết hợp (40-45% chỉ tiêu); và xét điểm thi tốt nghiệp THPT 2024 (40%).
+Tới 20/7, trường đã công bố điểm chuẩn của 4 phương thức đầu tiên. Điểm sàn theo kết quả thi tốt nghiệp là 20. Những thí sinh đã đủ điều kiện trúng tuyển bằng học bạ, điểm thi đánh giá năng lực, tư duy vẫn cần đạt yêu cầu này.
+Căn cứ phổ điểm thi tốt nghiệp năm nay, đại diện trường Đại học Thương mại nhận định đầu vào các chương trình chuẩn có thể tăng khoảng 0,25-0,5; các ngành mới mở có thể từ 24 điểm trở lên.
+Học phí năm học 2024-2025 của TMU là 24-26 triệu đồng với chương trình chuẩn, 35 triệu đồng với chương trình định hướng chuyên sâu.
+Hướng dẫn đăng ký xét tuyển đại học
+Từ nay đến hết 17h ngày 30/7, thí sinh được đăng ký, điều chỉnh nguyện vọng xét tuyển đại học, không giới hạn số lần trên hệ thống của Bộ.
+Phụ huynh và các em có thể tham khảo trang Tra cứu đại học của VnExpress để biết biến động điểm chuẩn đại học các năm theo ngành và trường. Hệ thống cũng đưa ra gợi ý ngành, trường năm ngoái có điểm chuẩn tiệm cận mức điểm thí sinh đạt được theo từng tổ hợp.
+Điểm chuẩn đại học được công bố trước 17h ngày 19/8.
+Thanh Hằng

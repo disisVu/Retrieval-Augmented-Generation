@@ -1,0 +1,13 @@
+Trường ĐH Bách khoa TPHCM công bố điểm sàn năm 2024
+Trường ĐH Bách khoa TPHCM quy định điểm sàn từ kết quả thi tốt nghiệp THPT 2024 là 18 điểm cho phương thức xét tuyển kết hợp.
+Theo đó, ở phương thức xét tuyển tổng hợp, thí sinh được đánh giá kết hợp bao gồm ba thành tố và trọng số tương ứng được dùng để xét tuyển.
+Trong đó thành tố học lực chiếm 90%, thành tích cá nhân chiếm 5% và hoạt động xã hội, văn thể mỹ chiếm 5%.
+Cụ thể như sau: Tiêu chí học lực (90%), bao gồm 3 thành phần là điểm học tập ở bậc THPT (bao gồm 6 học kì ứng với tổ hợp đăng ký xét tuyển); điểm thi tốt nghiệp THPT (bao gồm các môn trong tổ hợp xét tuyển); điểm thi đánh giá năng lực năm 2024.
+Thành phần học lực của thí sinh được tính dựa vào điểm học tập 3 năm THPT, điểm thi tốt nghiệp THPT và điểm thi đánh giá năng lực.
+Tiêu chí thành tích cá nhân (5%), học sinh đạt giải kỳ thi học sinh giỏi quốc gia, đạt giải Khoa học Kỹ thuật, trình độ ngoại ngữ, chứng chỉ tuyển sinh quốc tế, thành viên trong đội tuyển học sinh giỏi quốc gia, tỉnh/thành phố, và các giải thưởng học thuật khác. Tiêu chí hoạt động xã hội, văn thể mỹ (5%).
+Trường ĐH Bách khoa TPHCM quy định điểm sàn thi đánh giá năng lực của của ĐH Quốc gia TPHCM tổ chức năm 2024 là 600 điểm. Điểm sàn thi tốt nghiệp THPT năm 2024 là 18 điểm (theo tổ hợp xét tuyển). Điểm sàn học lực THPT là 54 điểm (là tổng điểm 3 môn theo tổ hợp xét tuyển trong 3 năm THPT).
+Công thức tính điểm thành tố học lực trong xét tuyển: 
+Điểm thành tố học lực = (0.7 x Điểm ĐGNLquy đổi ) + (0.2 x Điểm thi TN THPT x3) + (0.1 x Điểm HL THPT)
+Trong đó: Điểm thi tốt nghiệp THPT là tổng điểm thi 3 môn theo tổ hợp xét tuyển (tối đa 30 điểm). Điểm học lực THPT là tổng điểm trung bình năm 3 môn theo tổ hợp xét tuyển trong 3 năm lớp 10, 11, 12 (tối đa 90 điểm). Riêng đối với điểm thi đánh giá năng lực được quy đổi được tính như sau:
+Đối với thí sinh có tham dự kỳ thi đánh giá năng lực của ĐH Quốc gia TPHCM năm 2024: ĐGNLquy đổi = Điểm thi ĐGNL x 90 / 990.
+Đối với thí sinh không tham dự kỳ thi đánh giá năng lực của ĐH Quốc gia TPHCM năm 2024: ĐGNLquy đổi = 0.75 x (Điểm thi TN THPT / 30 x 1200) x 90/990.

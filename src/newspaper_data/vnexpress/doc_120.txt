@@ -1,0 +1,16 @@
+Đại học đầu tiên đào tạo kỹ sư GenAI 
+Đại học Bách khoa Hà Nội là trường đầu tiên của Việt Nam mở chương trình kỹ sư chuyên sâu về Trí tuệ nhân tạo Tạo sinh (GenAI).
+Thông tin được công bố sáng 15/6.
+GenAI là lĩnh vực của trí tuệ nhân tạo, sử dụng các mô hình học máy tiên tiến được huấn luyện trên kho dữ liệu khổng lồ để học cách mô phỏng và tạo ra những dữ liệu mới, bao gồm văn bản, hình ảnh, âm thanh, video...
+TS Đinh Viết Sang, Giám đốc chương trình đào tạo này, cho biết ứng dụng của GenAI rất rộng, từ nghệ thuật và thiết kế, sáng tạo nội dung, đến thương mại điện tử, marketing, tài chính ngân hàng, y học, giáo dục.
+Đầu tư vào GenAI trên thế giới năm ngoái đạt 25 tỷ USD, tăng gấp 5 lần so với năm 2022, dự kiến lên 45 tỷ USD vào năm nay. Báo cáo Statista Market Insights nhận định quy mô thị trường GenAI tại Việt Nam có mức tăng trưởng hàng năm xấp xỉ 23%, đến năm 2030 sẽ ở mức gần một tỷ USD.
+"Đứng trước sự bùng nổ của GenAI, các công ty công nghệ, các ngân hàng hàng đầu đang đầu tư căn cơ về yếu tố con người, hạ tầng, công nghệ liên quan đến GenAI", ông Sang nói. "Đào tạo nguồn nhân lực chất lượng cao trong lĩnh vực GenAI là nhu cầu cấp thiết".
+Theo Data Science Programs, có hơn 1.000 đại học có chương trình đào tạo về Khoa học dữ liệu và Trí tuệ nhân tạo trên thế giới, nhưng chuyên sâu về GenAI chỉ có hai trường. Tại Việt Nam, trước Bách khoa Hà Nội, chưa có trường nào đào tạo.
+PGS.TS Tạ Hải Tùng, Hiệu trưởng trường Công nghệ thông tin và Truyền thông, Đại học Bách khoa Hà Nội, cho biết đó là động lực để trường quyết tâm tiên phong về GenAI.
+"Ba tháng làm việc liên tục vừa qua, với sự giúp đỡ của các chuyên gia, chúng tôi đã xây dựng thành công chương trình", ông Tùng nói.
+Chương trình về GenAI của Bách khoa kéo dài 1,5 năm với 48 tín chỉ, dành cho sinh viên có bằng cử nhân trong lĩnh vực Công nghệ Thông tin và Truyền thông. Sinh viên vượt qua sẽ nhận bằng kỹ sư.
+Họ được cung cấp kiến thức nền tảng về AI và chuyên sâu về GenAI, như: học máy, học sâu; vận hành, triển khai và giám sát các mô hình học máy; xây dựng các ứng dụng GenAI; tạo sinh văn bản, hình ảnh, video, âm thanh; ứng dụng GenAI trong các lĩnh vực; đạo đức AI và xây dựng trí tuệ nhân tạo đáng tin cậy...
+TS Trần Việt Hùng, nhà sáng lập Got It - startup công nghệ tại thung lũng Silicon, Mỹ, cho rằng GenAI còn rất mới với cả thế giới, chỉ được biết đến rộng rãi khi ChatGPT ra đời. Vì vậy, chưa có nhiều sản phẩm GenAI trên thị trường. Điều này giúp những kỹ sư nắm chắc về GenAI có nhiều cơ hội tạo ra những đột phá.
+"Tôi vui mừng vì Bách khoa nhanh chóng đưa ra chương trình về GenAI. Đây là số ít chương trình chính quy trên cả thế giới đào tạo chuyên sâu chứ không chỉ riêng ở Việt Nam", ông Hùng nói.
+Đại học Bách khoa Hà Nội là trường hàng đầu Việt Nam trong đào tạo và nghiên cứu Công nghệ thông tin. Trường Công nghệ và Truyền thông mỗi năm tuyển hơn 1.100 sinh viên, đều thuộc top 1% cao nhất cả nước về điểm thi tốt nghiệp THPT.
+Theo bảng xếp hạng QS năm 2024, lĩnh vực Khoa học máy tính và Hệ thống thông tin của trường trong top 451-500 thế giới.

@@ -1,0 +1,32 @@
+Học ngành Điện tử viễn thông ra trường làm gì, lương bao nhiêu? 
+Kỹ sư Điện tử - Viễn thông không phải là đi kéo cáp, sửa chữa TV mà có thể làm về bán dẫn, phần mềm với lương khởi điểm 12-20 triệu đồng một tháng.
+PGS.TS Nguyễn Đức Minh, Phó hiệu trưởng trường Điện - Điện tử, Đại học Bách khoa Hà Nội, cho biết Điện tử - Viễn thông là một trong những ngành mũi nhọn của cuộc cách mạng công nghiệp lần thứ 4 và là ngành có nhu cầu nhân lực cao ở Việt Nam và trên thế giới.
+Đặc biệt, Việt Nam được đánh giá là thị trường tiềm năng của ngành công nghiệp bán dẫn, nhu cầu nhân lực chất lượng cao khoảng 1.000 kỹ sư mỗi năm. Kỹ thuật Điện tử - Viễn thông là một trong những ngành học cung cấp nhiều nhân lực nhất.
+Tại Việt Nam, hầu hết đại học khối kỹ thuật đào tạo ngành này. Tuy nhiên, chương trình học không giống nhau hoàn toàn.
+Chương trình học
+Thầy Minh cho biết tại Đại học Bách khoa Hà Nội, sinh viên được học sâu về nhiều lĩnh vực.
+Đầu tiên là mạch điện tử, vi mạch (thiết kế và chế tạo chip bán dẫn), cấu trúc máy tính (máy tính nhúng - là các máy tính được đưa vào trong ôtô, thiết bị điện tử như tivi, tủ lạnh, camera, thiết bị viễn thông như trạm phát 4G, 5G, wifi).
+Lĩnh vực thứ hai là lập trình, từ phần cứng đến phần mềm ứng dụng như website, ứng dụng di động, cơ sở dữ liệu, máy chủ. Sinh viên cũng được học về hệ thống thông tin di động (4G, 5G), mạng máy tính; thiết bị Y sinh; AI/ML và xử lý tín hiệu âm thanh, tiếng nói, ảnh, video, đa phương tiện, sóng điện tử từ trường.
+Tại trường Đại học Bách khoa, Đại học Quốc gia TP HCM, chương trình gồm các môn học liên quan đến công nghệ tiêu biểu như thông tin di động và không dây, các hệ thống kết nối Internet IoT, siêu âm tần và an-ten, mạng viễn thông và mạng máy tính, phát thanh truyền hình, xử lý số tín hiệu, vi mạch số, vi mạch tín hiệu tương tự và hỗn hợp, MEMS, thiết kế hệ thống nhúng sử dụng vi điều khiển, FPGA, DSP và SoC.
+Học viện Công nghệ Bưu chính Viễn thông chia ngành này thành ba chuyên ngành là Mạng và dịch vụ Internet, Thông tin vô tuyến và di động, Hệ thống IoT.
+Thời gian đào tạo
+Thời gian học ngành Kỹ thuật Điện tử - Viễn thông ở các trường phổ biến là 4 năm với hệ cử nhân và 4,5-5 năm với hệ kỹ sư.
+Tại Đại học Bách khoa Hà Nội, sinh viên có thể học chương trình cử nhân (4 năm), tích hợp cử nhân - kỹ sư (5-5,5 năm), tích hợp cử nhân - thạc sĩ (5,5 năm). Nếu học lên tiến sĩ, thời gian đào tạo khoảng 8,5 năm.
+Học phí
+Ngành Kỹ thuật Điện tử - Viễn thông ở hầu hết trường có mức học phí 20-50 triệu đồng một năm.
+Như với Đại học Bách khoa Hà Nội, học phí chương trình chuẩn trung bình khoảng 22-28 triệu đồng một năm. Với chương trình tiên tiến, học phí 40-45 triệu, chương trình liên kết với Đại học Leibniz Hannover (Đức) là khoảng 55-65 triệu đồng.
+Học viện Công nghệ Bưu chính Viễn thông thu trung bình 27-34 triệu đồng một năm cho chương trình đại trà.
+Đại học Bách khoa TP HCM thu khoảng 15 triệu đồng một học kỳ, một năm học có 2-3 kỳ.
+Cơ hội việc làm
+Thầy Minh lưu ý học sinh không nên nghe các thông tin sai lệch về công việc của kỹ sư điện tử viễn thông như phải đi kéo cáp, sửa chữa TV. Đây là công việc dành cho công nhân kỹ thuật.
+Kỹ sư tốt nghiệp ngành Điện tử - Viễn thông sẽ làm trong các mảng công việc: thiết kế sản xuất vi mạch bán dẫn, bảng mạch điện tử; phát triển phần mềm; thiết kế lập trình các máy tính nhúng; thiết kế vận hành, tối ưu mạng máy tính và mạng truyền thông; phân tích dữ liệu, trí tuệ nhân tạo/học máy; phát triển vận hành thiết bị điện tử y tế (thiết bị y sinh).
+Các công ty tuyển dụng kỹ sư điện tử viễn thông gồm:
+- Công ty vi mạch bán dẫn: Samsung, Intel, Infineon, Bosch, Qorvo, CoAsia, Renesas, Marvel, Qualcomm, Mediatek, TSMC...
+- Công ty phần mềm nhúng: FPT Software, Viettel High Tech, VNPT Technology, Samsung, Toshiba, Panasonics, Nissan, LG Electronics...
+- Công ty phần mềm: FPT Software, Zalo, VNG...
+- Các doanh nghiệp cần phân tích dữ liệu như ngân hàng, công ty bảo hiểm.
+- Các bệnh viện.
+- Các công ty viễn thông như Viettel, VNPT, Mobifone, Vinaphone, FTel.
+Theo khảo sát của trường Đại học Bách khoa Hà Nội, mức lương kỹ sư Điện tử viễn thông mới ra trường là 12-20 triệu đồng một tháng, sau 5 năm là khoảng 30 triệu đồng.
+Với ngành bán dẫn, số liệu của Cộng đồng Vi mạch Việt Nam cho thấy trung bình lương sau thuế trong năm đầu đi làm của kỹ sư thiết kế chip là gần 220 triệu đồng, tức trung bình hơn 18 triệu đồng một tháng. Với 5 năm kinh nghiệm, người làm công việc này có thu nhập trên 330 triệu đồng một năm. Con số này tăng dần lên hơn 800 và 1,3 tỷ đồng nếu có 15-20 năm kinh nghiệm.
+Nếu không đi làm ngay sau khi tốt nghiệp, sinh viên có thể ứng tuyển các học bổng thạc sĩ, tiến sĩ tại Pháp, Hàn Quốc, Đức, Đài Loan, Nhật Bản. Ở Bách khoa Hà Nội, 95% sinh viên làm việc tại các doanh nghiệp sau tốt nghiệp, 5% du học.

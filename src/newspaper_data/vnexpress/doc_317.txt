@@ -1,0 +1,41 @@
+Trường Kinh tế dạy ngành Trí tuệ nhân tạo thế nào 
+Đại học Kinh tế TP HCM và Kinh tế quốc dân nói đào tạo ngành Trí tuệ nhân tạo theo hướng ứng dụng, sinh viên ra trường nhận lương khởi điểm 10-20 triệu đồng một tháng.
+Trí tuệ nhân tạo là ngành thuộc lĩnh vực khoa học máy tính. Ngành này nghiên cứu và phát triển các hệ thống mô phỏng trí thông minh của con người, như phần mềm dịch ngôn ngữ, xe ôtô tự lái, trợ lý ảo, phần mềm trò chuyện với khách hàng (chatbot), phần mềm tự chơi cờ vua, sáng tác thơ ca, làm phim...
+Khoảng 50 đại học, học viện trong cả nước mở ngành/chương trình Trí tuệ nhân tạo, chủ yếu là các trường công nghệ, kỹ thuật.
+Từ năm ngoái, Đại học Kinh tế TP HCM (UEH) gây chú ý khi tham gia đào tạo ngành này, năm nay đến lượt trường Kinh tế quốc dân (NEU). Lãnh đạo hai trường cho biết việc đào tạo thiên về kỹ thuật, song vẫn gắn với đặc thù của trường kinh tế, sinh viên tốt nghiệp có thu nhập không kém trường khác.
+Chương trình học
+Trong năm đầu mở ngành Trí tuệ nhân tạo, trường Đại học Kinh tế Quốc dân tuyển 120 sinh viên, ở cả hệ cử nhân (130 tín chỉ, 4 năm) và kỹ sư (150 tín chỉ, 4,5 năm), học bằng tiếng Anh.
+PGS. TS Hà Minh Hoàng, Trường Công nghệ của NEU cho biết sinh viên được học kiến thức và kỹ năng chuyên môn nền tảng về Trí tuệ nhân tạo, rèn khả năng lập trình; chuẩn bị, phân tích dữ liệu, huấn luyện, tối ưu kiến trúc, tinh chỉnh tham số và triển khai các mô hình trí tuệ nhân tạo. Các em cũng được trang bị các kiến thức về kinh doanh, kinh tế, quản trị, để có thể áp dụng Trí tuệ nhân tạo vào các ngành này.
+Tại Đại học Kinh tế TP HCM, ngành Trí tuệ nhân tạo được chia thành hai chương trình, là Robot và Trí tuệ nhân tạo, Điều khiển thông minh và Tự động hóa, đều với 155 tín chỉ, lấy bằng kỹ sư trong 4 năm. Tổng chỉ tiêu tuyển sinh là 140.
+PGS.TS Nguyễn Trường Thịnh, Viện trưởng Viện Công nghệ thông minh và Tương tác của trường, cho biết chương trình học tập trung vào nguyên lý kỹ thuật cơ bản, cơ sở và khoa học của robot, điều khiển thông minh và tự động hóa trên nền tảng trí tuệ nhân tạo, ứng dụng kiến thức vào dự án thực tế.
+"Sinh viên được trang bị kiến thức nền trong lĩnh vực cơ khí, điện tử, công nghệ thông tin, từ đó ứng dụng công nghệ trí tuệ nhân vào vào điều khiển robot, các hệ thống thông minh và tự động hóa trong hoạt động đo lường, kiểm tra và giám sát hệ thống", ông Thịnh nói.
+Cả hai trường cho biết chương trình học đều gắn với hợp tác doanh nghiệp, hỗ trợ sinh viên khi làm dự án, nghiên cứu và thực tập.
+"Các em được học trong môi trường kinh tế, có bạn bè, thầy cô, các đối tác là doanh nghiệp thuộc lĩnh vực này. Nhờ vậy, sinh viên cũng phát triển sự am hiểu, nhạy bén trong kinh doanh, sau có thể trở thành nhà lãnh đạo mảng kinh doanh trong các công ty công nghệ, khởi nghiệp", ông Hoàng nói.
+Các vị trí việc làm sau tốt nghiệp
+Trường Đại học Kinh tế quốc dân cho biết sinh viên tốt nghiệp Trí tuệ nhân tạo có thể đảm nhiệm nhiều vị trí việc làm như:
+- Lập trình viên: Tham gia phát triển và xây dựng phần mềm, viết mã, thử nghiệm và bảo trì ứng dụng.
+- Chuyên gia xử lý và phân tích số liệu/xây dựng và quản lý hệ thống lưu trữ: Phân tích số liệu trong các tổ chức, doanh nghiệp để lập kế hoạch, ra quyết định.
+- Chuyên gia về học máy: Tham gia phân tích dữ liệu, huấn luyện tối ưu kiến trúc, tinh chỉnh tham số và triển khai các mô hình trí tuệ nhân tạo.
+- Giảng viên, nghiên cứu viên: Giảng dạy hoặc nghiên cứu tại các trường đại học, viện nghiên cứu.
+- Khởi nghiệp về công nghệ.
+Ở UEH, các vị trí việc làm được gợi ý hai nhóm chương trình:
+Kỹ sư robot và trí tuệ nhân tạo
+- Quản lý sản xuất, kỹ sư R&D, QA tại các công ty sản xuất hệ thống tự động/robot.
+- Kỹ sư lập trình robot tại các công ty có hệ thống máy móc tự động và thông minh.
+- Quản lý sản xuất, kỹ thuật; kỹ sư thiết kế, sản xuất, phát triển sản phẩm tại nhà máy/công ty có hệ thống tự động.
+- Nhà sáng lập công ty khởi nghiệp công nghệ cao.
+- Quản lý/điều phối viên các dự án chuyển đổi số, phát triển sản phẩm và công nghệ cao.
+- Điều phối các dự án công nghệ cao cho các tổ chức, công ty...
+Kỹ sư điều khiển thông minh và tự động hóa
+- Kỹ sư M&E, vận hành, thiết kế, lập trình điều khiển, điều khiển tự động.
+- Chuyên gia hệ thống, tư vấn, kỹ sư hệ thống.
+- Sáng lập, điều hành công ty khởi nghiệp trong kinh doanh và áp dụng công nghệ robot, điều khiển tự động hóa, trí tuệ nhân tạo.
+- Nghiên cứu và phát triển các sản phẩm thuộc trí tuệ nhân tạo/máy học, tự động hóa và ứng dụng của nó trên nhiều nền tảng.
+- Khảo sát, đánh giá thị trường và soạn thảo báo cáo xu hướng phát triển của lĩnh vực tự động hóa.
+- Phát triển các ứng dụng trong tự động hóa thông minh.
+Lương 10-50 triệu đồng/tháng
+Cả PGS Hoàng và PGS Thịnh đều cho rằng sinh viên tốt nghiệp ngành Trí tuệ nhân tạo từ các trường kinh tế có thể nhận thu nhập tương đương sinh viên ngành này ở trường khác.
+Ngay khi thực tập tại doanh nghiệp, các em có thể kiếm 7-10 triệu đồng một tháng. Lương của tân cử nhân, kỹ sư hiện dao động 10-20 triệu đồng, sau 3-5 năm thường tăng gấp 2-3 lần.
+"Sau 5 năm làm việc, nếu đủ khả năng đảm nhiệm vị trí quản lý, giám đốc sản xuất, chuyên gia thì mức lương có thể trên 50 triệu đồng", ông Thịnh cho biết.
+Ông Hoàng nói thêm, các ngành công nghệ như Trí tuệ nhân tạo không có mức trần về lương. Do đó, sinh viên xuất sắc thậm chí có thể kiếm 50-75 triệu đồng một tháng khi vừa tốt nghiệp.
+Thanh Hằng - Lệ Nguyễn
