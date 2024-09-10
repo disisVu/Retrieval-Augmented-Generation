@@ -5,19 +5,18 @@ import dash_bootstrap_components as dbc
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
+import re
 from tqdm import tqdm
 import tensorflow as tf
 from transformers import (
   TFAutoModel,
   AutoTokenizer,
-  T5ForConditionalGeneration,
   T5Tokenizer,
   AutoModelForSequenceClassification,
   MT5ForConditionalGeneration,
 )
 import py_vncorenlp
 import torch
-import faiss
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -38,17 +37,16 @@ ranking_model = None
 ranking_tokenizer = None
 documents = None
 segmented_documents = None
-un_segmented_documents = None
 doc_embeddings = None
 k_count = 5
 max_length = 256
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-external_document_dir = os.path.join(current_dir, 'newspaper_data')
-# external_document_dir = os.path.join(current_dir, 'small_data')
+#external_document_dir = os.path.join(current_dir, 'newspaper_data')
+external_document_dir = os.path.join(current_dir, 'small_data')
 vncorenlp_dir = os.path.join(current_dir, 'vncorenlp')
-embeddings_file_path = os.path.join(current_dir, 'vectordb') + "/doc_embeddings.npy"
+embeddings_file_path = os.path.join(current_dir, 'vectordb') + "\small_doc_embeddings.npy"
 
 # BƯỚC 0:
 # Khởi tạo các mô hình cần thiết
@@ -61,8 +59,6 @@ def initialize_models():
   embedding_tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-large")
 
   global generation_model, generation_tokenizer
-  # generation_model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-large")
-  # generation_tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-large")
   generation_model = MT5ForConditionalGeneration.from_pretrained("google/mt5-large")
   generation_tokenizer = T5Tokenizer.from_pretrained("google/mt5-large")
 
@@ -87,11 +83,10 @@ def get_data_from_txt_files(folder_path):
       if filename.endswith('.txt'):
         file_paths.append(os.path.join(root, filename))
 
-  # Sử dụng ThreadPoolExecutor để xử lý đồng thời nhiều file
-  with ThreadPoolExecutor() as executor:
-    results = executor.map(read_file, file_paths)
-    for chunks in results:
-      documents.extend(chunks)
+  # Xử lý tuần tự các file
+  for file_path in file_paths:
+    chunks = read_file(file_path)
+    documents.extend(chunks)
 
   return documents
 
@@ -122,50 +117,32 @@ def reverse_segment_words(segmented_text):
 # Tạo vector embedding từ văn bản đã được phân tách
 # input: dữ liệu văn bản
 # output: danh sách vector embedding
-
-# def generate_embeddings(texts):
-#   all_embeddings = []
-#   for text in tqdm(texts, desc="Generating Embeddings"):
-#     # Sử dụng TensorFlow tensors thay vì PyTorch tensors
-#     inputs = embedding_tokenizer(text, return_tensors="tf", truncation=True, padding='max_length', max_length=max_length)
-    
-#     # Đảm bảo rằng mô hình TensorFlow được gọi đúng cách
-#     outputs = embedding_model(**inputs)
-    
-#     # Sử dụng pooler_output để lấy embedding
-#     embedding = outputs.pooler_output
-#     all_embeddings.append(embedding)
-
-#   # Trả về các embedding dưới dạng TensorFlow tensor
-#   return tf.concat(all_embeddings, axis=0) if all_embeddings else tf.zeros((0,))
-
 # Hàm generate embedding cho mỗi văn bản
 def generate_single_embedding(text):
   inputs = embedding_tokenizer(text, return_tensors="tf", truncation=True, padding='max_length', max_length=max_length)
   outputs = embedding_model(**inputs)
   embedding = outputs.pooler_output
-  return embedding
+  return embedding[0]
 
 # Hàm generate embeddings với threading và thanh tiến trình
-def generate_embeddings_multithreaded(texts, num_threads=1):
+def generate_embeddings(texts, num_threads=1):
   all_embeddings = []
-  
-  # Sử dụng ThreadPoolExecutor để quản lý luồng
   with ThreadPoolExecutor(max_workers=num_threads) as executor:
     futures = [executor.submit(generate_single_embedding, text) for text in texts]
-    
     # Sử dụng tqdm để hiển thị thanh tiến trình cho các tác vụ song song
     for future in tqdm(as_completed(futures), total=len(texts), desc="Generating Embeddings"):
-      embedding = future.result()  # Lấy kết quả từ mỗi thread
+      embedding = future.result()
       all_embeddings.append(embedding)
-  
-  return tf.concat(all_embeddings, axis=0) if all_embeddings else tf.zeros((0,))
+  # Trả về các embedding dưới dạng TensorFlow tensor
+  concatenated_embeddings = tf.concat(all_embeddings, axis=-0) if all_embeddings else tf.zeros((1, 1024))
+  reshaped_concatenated_embeddings = tf.reshape(concatenated_embeddings, (-1, 1024))
+  return reshaped_concatenated_embeddings
 
 # BƯỚC 3.1:
 # Lưu document embeddings vào file
 def save_embeddings_to_file(embeddings, file_path=embeddings_file_path):
   # Convert TensorFlow tensor hoặc PyTorch tensor sang numpy nếu cần
-  embeddings_np = embeddings.numpy() if not isinstance(embeddings, np.ndarray) else embeddings
+  embeddings_np = np.array(embeddings)
   np.save(file_path, embeddings_np)
   print(f"Saved embeddings to {file_path}")
 
@@ -184,8 +161,7 @@ def get_or_generate_embeddings(texts, file_path=embeddings_file_path):
   
   # Nếu embeddings chưa tồn tại, generate và save
   if embeddings is None:
-    print("Generating embeddings...")
-    embeddings = generate_embeddings_multithreaded(texts)
+    embeddings = generate_embeddings(texts)
     save_embeddings_to_file(embeddings, file_path)
   
   return embeddings
@@ -204,18 +180,7 @@ def rank_documents(query_embedding, doc_embeddings):
 # Lấy một số lượng k những document được xếp hạng cao nhất
 def retrieve_top_k_documents(query_embedding, doc_embeddings, documents, k = k_count):
   cos_similarities, ranked_indices = rank_documents(query_embedding, doc_embeddings)
-
-  print(f"\nCosine similarities: {cos_similarities}")
-  print(f"\nranked_indices: {ranked_indices}")
-
   top_k_indices = ranked_indices[0][:k]
-
-  print(f"\nTop k indices: {top_k_indices}")
-  # Kiểm tra nếu có bất kỳ chỉ số nào vượt quá độ dài của documents
-  for idx in top_k_indices:
-    if idx >= len(documents):
-      print(f"\nIndex {idx} is out of range for documents = {len(documents)}")
-
   top_k_documents = [documents[idx] for idx in top_k_indices if idx < len(documents)]
   return top_k_documents
 
@@ -223,11 +188,10 @@ def retrieve_top_k_documents(query_embedding, doc_embeddings, documents, k = k_c
 # Xếp hạng lại danh sách những document đã được chọn ở bước 5
 def re_rank_documents(query, top_k_documents):
   inputs = [f"{query} [SEP] {doc}" for doc in top_k_documents]
-  print(f'rank inputs: {inputs}')
   tokenized_inputs = ranking_tokenizer(inputs, padding=True, truncation=True, return_tensors='pt')
   with torch.no_grad():
     outputs = ranking_model(**tokenized_inputs)
-    
+
   scores = outputs.logits.squeeze().tolist()
   if not isinstance(scores, list):
     scores = [scores]
@@ -266,6 +230,13 @@ def generate_response(query, top_k_documents):
   print(f"Generated Response: {response}")
   return response
 
+# BƯỚC 7.1:
+# Loại bỏ "<token_id_x>" khỏi câu trả lời
+def remove_extra_ids(text):
+  pattern = r'<extra_id_\d+>'
+  cleaned_text = re.sub(pattern, '', text)
+  return cleaned_text.strip()
+
 # BƯỚC 8:
 # Khởi tạo chatbot
 def initialize_chatbot():
@@ -274,26 +245,11 @@ def initialize_chatbot():
   global documents
   documents = get_data_from_txt_files(external_document_dir)
 
-  global doc_embeddings, segmented_documents, un_segmented_documents
+  global segmented_documents, doc_embeddings
   segmented_documents = [segment_words(document) for document in documents]
-  un_segmented_documents = [reverse_segment_words(document) for document in segmented_documents]
   doc_embeddings = get_or_generate_embeddings(segmented_documents)
 
-  print('\nChatbot created')
-
 initialize_chatbot()
-
-# # Print each document
-# print('\nDocuments:')
-# for document in documents:
-#   # Check if document is a list and join it into a single string if necessary
-#   if isinstance(document, list):
-#     document_text = ' '.join(document)
-#   else:
-#     document_text = document
-
-#   # Print the document
-#   print(document_text + '\n')
 
 # Dash app layout
 app.layout = dbc.Container(
@@ -346,37 +302,12 @@ def update_output(n_clicks, user_message, chat_history):
     chat_history.append(new_query_box)
 
     # Generate chatbot response
-    print("\nAwaiting response 0")
     segmented_user_message = segment_words(user_message)
-    segmented_user_message_to_embed = " ".join(segmented_user_message)
-    print(f"\nType of segmented_user_message: {type(segmented_user_message)}")
-
-    query_embedding = generate_single_embedding([segmented_user_message_to_embed])
-
-    query_embedding_np = query_embedding.numpy()
-    print(f"\nQuery Embedding: {query_embedding_np}")
-
-    print(f"\nDoc Embeddings: {doc_embeddings.shape}")
-
-    print(f"\nUn_segmented_documents shhape: {len(un_segmented_documents)}")
-
-    top_k_documents = retrieve_top_k_documents(query_embedding, doc_embeddings, un_segmented_documents, k=3)
-
-    print("\nTop K documents:")
-    for document in top_k_documents:
-      # Check if document is a list and join it into a single string if necessary
-      if isinstance(document, list):
-        document_text = ' '.join(document)
-      else:
-        document_text = document
-
-      # Print the document
-      print(document_text + '\n')
-
+    query_embedding = generate_embeddings([segmented_user_message])
+    top_k_documents = retrieve_top_k_documents(query_embedding, doc_embeddings, documents, k=3)
     ranked_docs = re_rank_documents(user_message, top_k_documents)
     response = generate_response(user_message, ranked_docs)
-
-    print("\nAwaiting response 4")
+    response = remove_extra_ids(response)
 
     # Add response message box
     new_response_box = html.Div(

@@ -20,7 +20,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-external_document_dir = os.path.join('external')
+external_document_dir = os.path.join('small_data')
 
 embedding_tokenizer, embedding_model, generation_tokenizer, generation_model, ranking_tokenizer, ranking_model, translation_tokenizer, translation_model = [None] * 8
 
@@ -101,7 +101,7 @@ def get_data_from_txt_files(folder_path, tokenizer, max_length=512):
         # Chunk the content
         chunks = chunk_text(content, tokenizer, max_length)
         documents.extend(chunks)
-  
+  print(f"\nDocument count: {len(documents)}")
   return documents
 
 
@@ -132,6 +132,7 @@ def generate_embeddings(texts, tokenizer, model, max_length=512):
 
 # Rank Documents Using Embeddings of Query and External Documents
 def rank_documents(query_embedding, doc_embeddings):
+  print(f"\nDoc_embeddings shape: {doc_embeddings.shape}")
   # Compute cosine similarity between query and document embeddings
   cos_similarities = cosine_similarity(query_embedding, doc_embeddings)
 
