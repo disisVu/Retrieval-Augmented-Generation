@@ -3,6 +3,7 @@ from dash import html
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 
+from itertools import chain
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 import re
@@ -19,6 +20,8 @@ import py_vncorenlp
 import torch
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
+
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 
 # Thiết lập đường dẫn cache trên ổ D
 os.environ['HF_HOME'] = 'D:/HuggingFace/cache'
@@ -39,14 +42,14 @@ documents = None
 segmented_documents = None
 doc_embeddings = None
 k_count = 5
-max_length = 256
+max_length = 128
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-#external_document_dir = os.path.join(current_dir, 'newspaper_data')
-external_document_dir = os.path.join(current_dir, 'small_data')
+external_document_dir = os.path.join(current_dir, 'newspaper_data')
+# external_document_dir = os.path.join(current_dir, 'small_data')
 vncorenlp_dir = os.path.join(current_dir, 'vncorenlp')
-embeddings_file_path = os.path.join(current_dir, 'vectordb') + "\small_doc_embeddings.npy"
+embeddings_file_path = os.path.join(current_dir, 'vectordb') + "\doc_embeddings.npy"
 
 # BƯỚC 0:
 # Khởi tạo các mô hình cần thiết
@@ -63,8 +66,8 @@ def initialize_models():
   generation_tokenizer = T5Tokenizer.from_pretrained("google/mt5-large")
 
   global ranking_model, ranking_tokenizer
-  ranking_model = AutoModelForSequenceClassification.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
-  ranking_tokenizer = AutoTokenizer.from_pretrained("cross-encoder/ms-marco-MiniLM-L-6-v2")
+  ranking_model = AutoModelForSequenceClassification.from_pretrained("cross-encoder/ms-marco-MiniLM-L-12-v2")
+  ranking_tokenizer = AutoTokenizer.from_pretrained("cross-encoder/ms-marco-MiniLM-L-12-v2")
 
 # BƯỚC 1:
 # Đọc dữ liệu và chia nhỏ văn bản từ file
@@ -107,7 +110,8 @@ def chunk_text(text):
 # input: "Chúng tôi là nghiên cứu viên"
 # output: "Chúng tôi là nghiên_cứu viên"
 def segment_words(text):
-  return rdrsegmenter.word_segment(text)
+  segmented_text_list = rdrsegmenter.word_segment(text)
+  return segmented_text_list
 
 def reverse_segment_words(segmented_text):
   text = ' '.join(segmented_text)
@@ -119,9 +123,11 @@ def reverse_segment_words(segmented_text):
 # output: danh sách vector embedding
 # Hàm generate embedding cho mỗi văn bản
 def generate_single_embedding(text):
+  print(f"\n{text}")
   inputs = embedding_tokenizer(text, return_tensors="tf", truncation=True, padding='max_length', max_length=max_length)
   outputs = embedding_model(**inputs)
   embedding = outputs.pooler_output
+  print(f"\n{embedding.shape}")
   return embedding[0]
 
 # Hàm generate embeddings với threading và thanh tiến trình
@@ -218,8 +224,8 @@ def generate_response(query, top_k_documents):
 
   # Debug: Print input length and contents
   print("\n=== Debug: Generate Response ===")
-  print(f"Combined input length: {len(inputs[0])}")
-  print(f"Input (truncated): {generation_tokenizer.decode(inputs[0], skip_special_tokens=True)}")
+  print(f"\nCombined input length: {len(inputs[0])}")
+  print(f"\nInput (truncated): {generation_tokenizer.decode(inputs[0], skip_special_tokens=True)}")
 
   with torch.no_grad():
     output = generation_model.generate(inputs, max_length=100, num_return_sequences=1)
@@ -227,15 +233,22 @@ def generate_response(query, top_k_documents):
   response = generation_tokenizer.decode(output[0], skip_special_tokens=True)
 
   # Debug: Print generated response
-  print(f"Generated Response: {response}")
+  print(f"\nGenerated Response: {response}")
   return response
 
 # BƯỚC 7.1:
 # Loại bỏ "<token_id_x>" khỏi câu trả lời
-def remove_extra_ids(text):
+def extract_text_between_extra_ids(text):
+  # Remove <extra_id_X> tags
   pattern = r'<extra_id_\d+>'
   cleaned_text = re.sub(pattern, '', text)
+  # Remove <unk> tokens
+  cleaned_text = cleaned_text.replace('<unk>', '')
   return cleaned_text.strip()
+
+# Function to replace underscores with whitespace
+def replace_underscore_with_space(text):
+  return text.replace('_', ' ').strip()
 
 # BƯỚC 8:
 # Khởi tạo chatbot
@@ -305,9 +318,10 @@ def update_output(n_clicks, user_message, chat_history):
     segmented_user_message = segment_words(user_message)
     query_embedding = generate_embeddings([segmented_user_message])
     top_k_documents = retrieve_top_k_documents(query_embedding, doc_embeddings, documents, k=3)
-    ranked_docs = re_rank_documents(user_message, top_k_documents)
+    normalized_top_k_documents = [replace_underscore_with_space(doc) for doc in top_k_documents]
+    ranked_docs = re_rank_documents(user_message, normalized_top_k_documents)
     response = generate_response(user_message, ranked_docs)
-    response = remove_extra_ids(response)
+    response = extract_text_between_extra_ids(response)
 
     # Add response message box
     new_response_box = html.Div(

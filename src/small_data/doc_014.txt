@@ -1,4 +1,4 @@
-Điểm chuẩn học bạ Đại học Dược Hà Nội cao nhất 28,53 
+Điểm chuẩn học bạ Đại học Dược Hà Nội cao nhất 28,53.
 Đại học Dược Hà Nội công bố điểm chuẩn học bạ từ 25,88 đến 28,53/30, cao nhất là ngành Công nghệ sinh học.
 Đây là tổng điểm trung bình ba môn trong tổ hợp xét tuyển, cộng điểm ưu tiên, điểm quy đổi (nếu có).
 Phương thức này áp dụng với học sinh chuyên Toán, Lý, Hóa, Sinh (PT2B). Trong đó, học sinh chuyên Sinh chỉ được đăng ký xét tuyển vào ngành Công nghệ sinh học. Nếu học chuyên Lý, các em có thể chọn Hóa dược, Hóa học, Dược học. Học sinh chuyên Toán được xét tuyển ở tất cả ngành.
@@ -6,7 +6,7 @@ Xếp sau Công nghệ sinh học về điểm chuẩn là ngành Dược học 
 Ngoài ra, trường xét kết hợp học bạ và SAT/ACT (bài thi chuẩn hóa quốc tế) với mọi thí sinh (PT2A). Ngành Dược học dẫn đầu với 92,04/100 điểm, theo sau là Hóa dược 90,04. Hóa học vẫn lấy điểm chuẩn thấp nhất - 83,9.
 Cách tính điểm ở phương thức này như sau: Điểm xét tuyển = Tổng điểm đạt được + Điểm ưu tiên quy đổi
 Trong đó:
-Tổng điểm đạt được = Điểm SAT*90/1600 + (ĐTB M1 + ĐTB M2 + ĐTB M3)/3 (hoặc = Điểm ACT*90/36 + (ĐTB M1 + ĐTB M2 + ĐTB M3)/3
+Tổng điểm đạt được = Điểm SAT*90/1600 + (ĐTB M1 + ĐTB M2 + ĐTB M3)/3 hoặc = Điểm ACT*90/36 + (ĐTB M1 + ĐTB M2 + ĐTB M3)/3
 Điểm ưu tiên quy đổi = [(30 - Tổng điểm đạt được/100*30) /7,5* Điểm ưu tiên] /30*100
 Năm 2024, trường Đại học Dược Hà Nội tuyển 940 sinh viên. Ngoài hai phương thức nói trên, trường còn xét tuyển dựa vào điểm thi đánh giá tư duy của Đại học Bách khoa Hà Nội (phương thức 3) và điểm thi tốt nghiệp THPT (phương thức 4), xét tuyển thẳng học sinh được giải quốc gia, quốc tế theo quy định của Bộ Giáo dục và Đào tạo.
 Học phí các ngành từ 15,2 đến 24,5 triệu đồng một năm, cao nhất là Dược học. Trường cho biết mức này có thể được điều chỉnh hàng năm, song không quá 5-10% so với năm liền trước.
