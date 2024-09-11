@@ -316,7 +316,6 @@ def update_output(n_clicks, user_message, chat_history):
         className="message-box response"
       ),
       className="message-wrapper"
-
     )
     chat_history.append(new_response_box)
 
