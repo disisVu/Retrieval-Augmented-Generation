@@ -21,8 +21,6 @@ import torch
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
-
 # Thiết lập đường dẫn cache trên ổ D
 os.environ['HF_HOME'] = 'D:/HuggingFace/cache'
 
@@ -123,11 +121,9 @@ def reverse_segment_words(segmented_text):
 # output: danh sách vector embedding
 # Hàm generate embedding cho mỗi văn bản
 def generate_single_embedding(text):
-  print(f"\n{text}")
   inputs = embedding_tokenizer(text, return_tensors="tf", truncation=True, padding='max_length', max_length=max_length)
   outputs = embedding_model(**inputs)
   embedding = outputs.pooler_output
-  print(f"\n{embedding.shape}")
   return embedding[0]
 
 # Hàm generate embeddings với threading và thanh tiến trình
